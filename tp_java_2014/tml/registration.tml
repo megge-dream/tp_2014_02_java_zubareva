@@ -1,0 +1,15 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Регистрация</title>
+</head>
+<body>
+<H2>Пожалуйста, зарегистрируйтесь:</H2>
+<form action = "/registration" method = "POST">
+    Логин: <input type="text" name="login" />
+    <br>
+    Пароль:<input type="password" name="pass" />
+    <br>
+    <input type="submit" value="Войти">
+</form>
+</body>
+</html>

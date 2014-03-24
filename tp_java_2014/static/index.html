@@ -1,14 +1,19 @@
-﻿<html xmlns="http://www.w3.org/1999/xhtml">
+﻿<html xmlns="http://www.w3.org/1999/xhtml" content="text/html;" >
 <head>
-	<title>Авторизация</title>
+	<title>Индекс</title>
 </head>
 <body>
+<img src="jetty-logo-80x22.png"/>
+<br>
 <form action = "/" method = "POST">
-    <label for="login">Логин:</label> <input type="text" name="login" id="login"/>
-    <label for="password">Пароль:</label> <input type="password" name="pass" id="password"/>
+    Логин: <input type="text" name="login" />
     <br>
-    <input type="submit" value="Отправить">
+    Пароль:<input type="password" name="pass" />
+    <br>
+    <input type="submit" value="Войти">
+</form>
+<form action = "/registration" method = "GET">
+    <input type="submit" value="Зарегистрироваться">
 </form>
 <br/>
-<img src="jetty-logo-80x22.png"/>
 </body>
