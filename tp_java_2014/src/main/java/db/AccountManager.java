@@ -4,7 +4,7 @@ package db;
 import java.sql.SQLException;
 
 /*
-Created by p.Kochetkov on 08.03.14.
+Created by M.Zubareva
  */
 
 public class AccountManager implements AccountManagerInterface {

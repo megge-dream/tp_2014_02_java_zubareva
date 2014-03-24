@@ -1,7 +1,7 @@
 package frontend;
 
 /**
- * Created by p.Kochetkov on 08.03.14.
+ * Created by M.Zubareva
  */
 public class Pages {
     private Pages() {}

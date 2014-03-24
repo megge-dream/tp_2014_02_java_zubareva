@@ -3,7 +3,7 @@ package db;
 import java.sql.SQLException;
 
 /*
-  Created by p.Kochetkov on 8.03.14.
+   Created by M.Zubareva
 */
 public interface AccountManagerInterface {
 

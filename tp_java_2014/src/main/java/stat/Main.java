@@ -18,7 +18,7 @@ import java.sql.SQLException;
 import javax.servlet.Servlet;
 
 /**
- * @author p.Kochetkov
+ * @author M.Zubareva
  */
 public class Main {
     public static void main(String[] args) throws Exception {

@@ -1,7 +1,7 @@
 package db;
 
 /*
-  Created by p.Kochetkov on 09.03.14.
+  Created by M.Zubareva
  */
 public class SqlStringConstructor {
     public static String generateUpdate(UserDataSet user) {

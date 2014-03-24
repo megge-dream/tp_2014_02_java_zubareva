@@ -6,7 +6,7 @@ import java.sql.SQLException;
 import java.sql.ResultSet;
 
 /*
-Created by p.Kochetkov on 08.03.14.
+Created by M.Zubareva
  */
 public class Executor {
     public static boolean execUpdate(Connection connection, String update) throws SQLException {

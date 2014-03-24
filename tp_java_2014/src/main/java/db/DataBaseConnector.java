@@ -6,7 +6,7 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 //import com.mysql.jdbc.Driver;
 /*
- Created by p.Kochetkov on 08.03.14.
+ Created by M.Zubareva
  */
 
 public class DataBaseConnector {
