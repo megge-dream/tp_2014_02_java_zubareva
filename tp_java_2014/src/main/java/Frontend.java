@@ -14,7 +14,7 @@ import java.util.concurrent.atomic.AtomicLong;
 public class Frontend extends HttpServlet {
 
     private AtomicLong userIdGenerator = new AtomicLong();
-    private Map<String, String> loginAndPassword = new HashMap<String, String>();
+    private Map<String, String> loginAndPassword = new HashMap<>();
 
     public Frontend() {
         loginAndPassword.put("megge", "123");
@@ -43,7 +43,6 @@ public class Frontend extends HttpServlet {
             pageVariables.put("serverTime", getTime());
             pageVariables.put("userId", userId);
             response.getWriter().println(PageGenerator.getPage("timer.tml", pageVariables));
-            return;
         }
         else {
             response.sendRedirect("/index.html");
@@ -62,7 +61,7 @@ public class Frontend extends HttpServlet {
                 session.invalidate();
                 session = request.getSession();
             }
-            Long userId = (Long) userIdGenerator.getAndIncrement();
+            Long userId = userIdGenerator.getAndIncrement();
             session.setAttribute("userId", userId);
             response.sendRedirect("/timer");
         } else {

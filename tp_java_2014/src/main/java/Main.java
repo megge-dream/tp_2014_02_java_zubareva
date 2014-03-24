@@ -19,7 +19,7 @@ public class Main {
         context.addServlet(new ServletHolder(frontend), "/*");
 
         ResourceHandler resource_handler = new ResourceHandler();
-       // resource_handler.setDirectoriesListed(true);
+        resource_handler.setDirectoriesListed(true);
         resource_handler.setResourceBase("static");
 
         HandlerList handlers = new HandlerList();
