@@ -32,22 +32,18 @@ public class FrontendFroSession extends HttpServlet {
                       HttpServletResponse response) throws ServletException, IOException {
         response.setContentType("text/html;charset=utf-8");
         response.setStatus(HttpServletResponse.SC_OK);
-        Map<String, Object> pageVariables = new HashMap<>();
-        if (request.getPathInfo().equals(Pages.TIMER_PAGE)) {
-            HttpSession session = request.getSession();
-            Long userId = (Long) session.getAttribute("userId");
-            if (userId == null) {
-                response.sendRedirect(Pages.MAIN_PEG);
-            } else {
-                pageVariables.put("refreshPeriod", "1000");
-                pageVariables.put("serverTime", getTime());
-                pageVariables.put("userId", userId);
-                response.getWriter().println(PageGenerator.getPage("timer.tml", pageVariables));
-            }
-        }
+        switch (request.getPathInfo()) {
+            case Pages.TIMER_PAGE:
+                getTimerPage(request, response);
+                break;
 
-        if (request.getPathInfo().equals(Pages.REG_PAGE)) {
-            response.getWriter().println(PageGenerator.getPage("registration.tml", pageVariables));
+            case Pages.REG_PAGE:
+                getRegPage(request, response);
+                break;
+
+            case Pages.ENTER_PAGE:
+                getEnterPage(request, response);
+                break;
         }
     }
 
@@ -58,25 +54,77 @@ public class FrontendFroSession extends HttpServlet {
         request.getSession().invalidate();
         String login = request.getParameter("login");
         String pass = request.getParameter("pass");
-        if (request.getPathInfo().equals(Pages.REG_PAGE)) {
-            try {
-                accountManager.regUser(login, pass);
-                request.getSession(true).setAttribute("userId", userIdGenerator.getAndIncrement());
-                response.sendRedirect(Pages.TIMER_PAGE);
-            } catch (SQLException e) {
-                e.printStackTrace();
-                response.sendRedirect(Pages.REG_PAGE);
-            }
+        switch (request.getPathInfo()) {
+            case Pages.REG_PAGE:
+                postRegPage(request, response, login, pass);
+                break;
+
+            case Pages.ENTER_PAGE:
+                postEnterPage(request, response, login, pass);
+                break;
         }
-        if (request.getPathInfo().equals(Pages.MAIN_PEG)) {
-            try {
-                accountManager.logUser(login, pass);
+    }
+
+    public void getTimerPage(HttpServletRequest request,
+                     HttpServletResponse response) throws IOException {
+        Map<String, Object> pageVariables = new HashMap<>();
+        HttpSession session = request.getSession();
+        Long userId = (Long) session.getAttribute("userId");
+        if (userId == null) {
+            response.sendRedirect(Pages.MAIN_PEG);
+        } else {
+            pageVariables.put("refreshPeriod", "1000");
+            pageVariables.put("serverTime", getTime());
+            pageVariables.put("userId", userId);
+            response.getWriter().println(PageGenerator.getPage("timer.tml", pageVariables));
+        }
+    }
+
+    public void getRegPage(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        Map<String, Object> pageVariables = new HashMap<>();
+        pageVariables.put("errorMessage","");
+        response.getWriter().println(PageGenerator.getPage("registration.tml", pageVariables));
+    }
+
+    public void getEnterPage(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        Map<String, Object> pageVariables = new HashMap<>();
+        pageVariables.put("errorMessage","");
+        response.getWriter().println(PageGenerator.getPage("enter.tml", pageVariables));
+    }
+
+    public void postEnterPage(HttpServletRequest request,
+                              HttpServletResponse response, String login, String pass) throws IOException {
+        Map<String, Object> pageVariables = new HashMap<>();
+        try {
+            if (accountManager.logUser(login, pass) == 0) {
                 request.getSession(true).setAttribute("userId", userIdGenerator.getAndIncrement());
                 response.sendRedirect(Pages.TIMER_PAGE);
-            } catch (SQLException e) {
-                e.printStackTrace();
-                response.sendRedirect(Pages.MAIN_PEG);
+            } else {
+                pageVariables.put("errorMessage", "Неправильная пара логин-пароль");
+                response.getWriter().println(PageGenerator.getPage("enter.tml", pageVariables));
             }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            pageVariables.put("errorMessage", "Что-то пошло не так");
+            response.getWriter().println(PageGenerator.getPage("enter.tml", pageVariables));
+        }
+    }
+
+    public void postRegPage(HttpServletRequest request,
+                            HttpServletResponse response, String login, String pass) throws IOException {
+        Map<String, Object> pageVariables = new HashMap<>();
+        try {
+            if (accountManager.regUser(login, pass) == 0) {
+                request.getSession(true).setAttribute("userId", userIdGenerator.getAndIncrement());
+                response.sendRedirect(Pages.TIMER_PAGE);
+            } else {
+                pageVariables.put("errorMessage", "Пользователь "+ login +" уже существует!");
+                response.getWriter().println(PageGenerator.getPage("registration.tml", pageVariables));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            pageVariables.put("errorMessage", "Что-то пошло не так");
+            response.getWriter().println(PageGenerator.getPage("registration.tml", pageVariables));
         }
     }
 }

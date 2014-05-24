@@ -7,7 +7,7 @@ import java.sql.SQLException;
 */
 public interface AccountManagerInterface {
 
-    void regUser(String login, String pass) throws SQLException;
-    void logUser(String login, String pass) throws SQLException;
+    int regUser(String login, String pass) throws SQLException;
+    int logUser(String login, String pass) throws SQLException;
 
 }

@@ -1,0 +1,16 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Вход</title>
+</head>
+<body>
+<H2>${errorMessage}</H2>
+<H2>Пожалуйста, войдите:</H2>
+<form action = "/enter" method = "POST">
+    Логин: <input type="text" name="login" />
+    <br>
+    Пароль:<input type="password" name="pass" />
+    <br>
+    <input type="submit" value="Войти">
+</form>
+</body>
+</html>

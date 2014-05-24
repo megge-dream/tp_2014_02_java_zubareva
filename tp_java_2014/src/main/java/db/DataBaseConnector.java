@@ -15,12 +15,11 @@ public class DataBaseConnector {
                 Driver driver = (Driver) Class.forName("com.mysql.jdbc.Driver").newInstance();
                 DriverManager.registerDriver(driver);
                 return DriverManager.getConnection("jdbc:mysql://" + "localhost:" + "3306/" +
-                    "javadb?" + "user=root&" + "password=ьфч");
+                    "javadb?" + "user=root&" + "password=max");
             }
             catch (SQLException | ClassNotFoundException | InstantiationException | IllegalAccessException e) {
                 e.printStackTrace();
             }
             return null;
         }
-
 }
